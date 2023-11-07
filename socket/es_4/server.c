@@ -32,7 +32,6 @@ int main(int argc, char *argv[])
     struct sockaddr_in server_addr, client_addr;
     int soa, socketfd, on = 1, fromlen = sizeof(server_addr);
 
-    struct hostent *host;
     memset((char *)&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -48,11 +47,7 @@ int main(int argc, char *argv[])
         printf("\n\nServer in ascolto...\n");
         fflush(stdout);
         cnt = 0;
-
         soa = accept(socketfd, (struct sockaddr *)&client_addr, &fromlen);
-
-        host = gethostbyaddr((char *)&client_addr.sin_addr, sizeof(client_addr.sin_addr), AF_INET);
-        printf("\n\nStabilita la connessione con il client %s \n", host->h_name);
 
         read(soa, testo, sizeof(testo));
         read(soa, &numParole, sizeof(numParole));
